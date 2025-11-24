@@ -83,7 +83,7 @@ Template prêt à l'emploi pour démarrer rapidement un projet Symfony avec Dock
 ### 1️⃣ Cloner le template
 
 ```bash
-git clone git@github.com:ton-user/docker-spn-template.git mon-nouveau-projet
+git clone https://github.com/teowaep/docker-spn-template.git mon-nouveau-projet
 cd mon-nouveau-projet
 ```
 
