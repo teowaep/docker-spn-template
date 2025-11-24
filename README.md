@@ -1,5 +1,22 @@
 # 🚀 Template Docker - Symfony + PostgreSQL + Nginx
 
+<div align="center">
+
+![Symfony](https://img.shields.io/badge/Symfony-7.2-000000?style=for-the-badge&logo=symfony)
+![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-1.27-009639?style=for-the-badge&logo=nginx&logoColor=white)
+![pgAdmin](https://img.shields.io/badge/pgAdmin-4-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+[![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)](LICENSE)
+![Maintenance](https://img.shields.io/badge/Maintained-Yes-green?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/teowaep/docker-spn-template?style=for-the-badge)
+
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge)
+
+</div>
+
 Template prêt à l'emploi pour démarrer rapidement un projet Symfony avec Docker, Nginx et PostgreSQL.
 
 ## 📦 Stack technique
