@@ -103,12 +103,12 @@ docker-compose build backend-php
 
 **Option A : Version complète (webapp) - Recommandé**
 ```bash
-docker-compose run --rm backend-php bash -c "composer create-project symfony/skeleton:7.2.* temp && cd temp && composer require webapp && cd .. && cp -r temp/* . && cp temp/.env . && rm -rf temp"
+docker-compose run --rm backend-php bash -c "composer create-project symfony/skeleton:7.* temp && cd temp && composer require webapp && cd .. && cp -r temp/* . && cp temp/.env . && rm -rf temp"
 ```
 
 **Option B : Version minimale (skeleton)**
 ```bash
-docker-compose run --rm backend-php bash -c "composer create-project symfony/skeleton:7.2.* temp && cp -r temp/* . && cp temp/.env . && rm -rf temp"
+docker-compose run --rm backend-php bash -c "composer create-project symfony/skeleton:7.* temp && cp -r temp/* . && cp temp/.env . && rm -rf temp"
 ```
 
 **Ou encore plus simple avec le Makefile :**
