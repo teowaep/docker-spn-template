@@ -153,9 +153,10 @@ setup: build up fix-perms composer-install ## Installation complete du projet (S
 	@echo "==> Application: http://localhost:8080"
 	@echo "==> pgAdmin: http://localhost:5050"
 	@echo ""
-	@echo "==> Pour creer la DB (necessite Doctrine) :"
-	@echo "    make upgrade-webapp    # Installe Doctrine + autres packages"
-	@echo "    make db-create         # Cree la base de donnees"
+	@echo "==> Pour ajouter des fonctionnalites :"
+	@echo "    make upgrade-webapp    # Site web (Twig, Formulaires, etc.)"
+	@echo "    make upgrade-api       # API REST (API Platform)"
+	@echo "    make db-create         # Creer la base de donnees"
 
 upgrade-webapp: ## Passer de skeleton a webapp (installe Doctrine, Twig, etc.)
 	@echo "==> Installation du pack webapp..."
@@ -172,8 +173,18 @@ upgrade-api: ## Passer de skeleton a API (installe API Platform)
 
 ## —— 🔧 Utilitaires ———————————————————————————————————————————————————————
 fix-perms: ## Corriger les permissions des fichiers
-	$(DOCKER_COMPOSE) exec $(PHP_CONTAINER) chown -R www-data:www-data var/
-	$(DOCKER_COMPOSE) exec $(PHP_CONTAINER) chmod -R 777 var/
+	@echo "==> Correction des permissions..."
+	@sudo chown -R $(USER):$(USER) . || chown -R $(USER):$(USER) . 2>/dev/null || true
+	@if docker-compose ps | grep -q "backend-php.*Up"; then \
+		if [ ! -d "var" ]; then \
+			echo "==> Creation du dossier var/..."; \
+			mkdir -p var/cache var/log; \
+		fi; \
+		$(DOCKER_COMPOSE) exec $(PHP_CONTAINER) chown -R www-data:www-data var/ 2>/dev/null || true; \
+		$(DOCKER_COMPOSE) exec $(PHP_CONTAINER) chmod -R 775 var/ 2>/dev/null || true; \
+	else \
+		echo "==> ATTENTION: Containers non demarres. Lance 'make up' puis relance 'make fix-perms'"; \
+	fi
 
 clear-cache: ## Supprimer tout le cache (fichiers)
 	$(DOCKER_COMPOSE) exec $(PHP_CONTAINER) rm -rf var/cache/*
