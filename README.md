@@ -190,7 +190,7 @@ make setup           # Build + up + composer install + db create + migrate
        │
 ┌──────▼──────┐     Port 5432    ┌────────────┐
 │   PHP-FPM   │◄────────────────►│ PostgreSQL │
-└─────────────┘                   └────────────┘
+└─────────────┘                  └────────────┘
 ```
 
 
