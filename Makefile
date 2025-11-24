@@ -149,16 +149,40 @@ test-coverage: ## Tests avec couverture de code
 ## —— 🚀 Installation ——————————————————————————————————————————————————————
 init-symfony-webapp: ## Installer Symfony webapp
 	@echo "==> Installation de Symfony webapp..."
+	@if [ -f .env ]; then \
+		echo "==> Sauvegarde du .env existant..."; \
+		cp .env .env.docker.backup; \
+	fi
 	$(DOCKER_COMPOSE) run --rm $(PHP_CONTAINER) bash -c "composer create-project symfony/skeleton:7.* temp && cd temp && composer require webapp && cd .. && cp -r temp/* . && cp temp/.env . 2>/dev/null || true && rm -rf temp"
+	@if [ -f .env.docker.backup ]; then \
+		echo "==> Fusion du .env Docker avec le .env Symfony..."; \
+		echo "" >> .env; \
+		echo "###> Docker Variables ###" >> .env; \
+		grep "POSTGRES_" .env.docker.backup >> .env 2>/dev/null || true; \
+		rm .env.docker.backup; \
+	fi
 	@echo "==> Symfony webapp installe !"
 	@echo "==> Correction des permissions..."
+	$(MAKE) up
 	$(MAKE) fix-perms
 
 init-symfony-skeleton: ## Installer Symfony skeleton
 	@echo "==> Installation de Symfony skeleton..."
+	@if [ -f .env ]; then \
+		echo "==> Sauvegarde du .env existant..."; \
+		cp .env .env.docker.backup; \
+	fi
 	$(DOCKER_COMPOSE) run --rm $(PHP_CONTAINER) bash -c "composer create-project symfony/skeleton:7.* temp && cp -r temp/* . && cp temp/.env . 2>/dev/null || true && rm -rf temp"
+	@if [ -f .env.docker.backup ]; then \
+		echo "==> Fusion du .env Docker avec le .env Symfony..."; \
+		echo "" >> .env; \
+		echo "###> Docker Variables ###" >> .env; \
+		grep "POSTGRES_" .env.docker.backup >> .env 2>/dev/null || true; \
+		rm .env.docker.backup; \
+	fi
 	@echo "==> Symfony skeleton installe !"
 	@echo "==> Correction des permissions..."
+	$(MAKE) up
 	$(MAKE) fix-perms
 
 setup: build up composer-install db-create db-migrate fix-perms ## Installation complète du projet (après avoir installe Symfony)
@@ -180,6 +204,7 @@ first-install-skeleton: build init-symfony-skeleton up composer-install fix-perm
 	@echo ""
 	@echo "==> Symfony skeleton installe et containers demarres !"
 	@echo "==> edite .env avec tes valeurs"
+	@echo "==> ATTENTION: Pour installer Doctrine: composer require symfony/orm-pack"
 	@echo "==> Ensuite lance: make db-migrate"
 	@echo "==> Application: http://localhost:8080"
 	@echo "==> pgAdmin: http://localhost:5050"
