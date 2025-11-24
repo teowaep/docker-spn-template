@@ -126,7 +126,7 @@ make init-symfony-skeleton
 docker-compose up -d
 ```
 
-### 7️⃣ Créer la base de données
+### 7️⃣ Créer la base de données (ne marche pas en skeleton)
 
 ```bash
 # Entrer dans le container
