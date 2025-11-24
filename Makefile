@@ -149,12 +149,12 @@ test-coverage: ## Tests avec couverture de code
 ## —— 🚀 Installation ——————————————————————————————————————————————————————
 init-symfony-webapp: ## Installer Symfony webapp
 	@echo "📦 Installation de Symfony webapp..."
-	$(DOCKER_COMPOSE) run --rm $(PHP_CONTAINER) bash -c "composer create-project symfony/skeleton:7.2.* temp && cd temp && composer require webapp && cd .. && cp -r temp/* . && cp temp/.env . 2>/dev/null || true && rm -rf temp"
+	$(DOCKER_COMPOSE) run --rm $(PHP_CONTAINER) bash -c "composer create-project symfony/skeleton:7.* temp && cd temp && composer require webapp && cd .. && cp -r temp/* . && cp temp/.env . 2>/dev/null || true && rm -rf temp"
 	@echo "✅ Symfony webapp installé !"
 
 init-symfony-skeleton: ## Installer Symfony skeleton
 	@echo "📦 Installation de Symfony skeleton..."
-	$(DOCKER_COMPOSE) run --rm $(PHP_CONTAINER) bash -c "composer create-project symfony/skeleton:7.2.* temp && cp -r temp/* . && cp temp/.env . 2>/dev/null || true && rm -rf temp"
+	$(DOCKER_COMPOSE) run --rm $(PHP_CONTAINER) bash -c "composer create-project symfony/skeleton:7.* temp && cp -r temp/* . && cp temp/.env . 2>/dev/null || true && rm -rf temp"
 	@echo "✅ Symfony skeleton installé !"
 
 setup: build up composer-install db-create db-migrate ## Installation complète du projet (après avoir installé Symfony)
