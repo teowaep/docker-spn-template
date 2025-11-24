@@ -1,0 +1,38 @@
+FROM php:8.4-fpm
+
+ARG INSTALL_XDEBUG=true
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  git \
+  unzip \
+  libicu-dev \
+  libzip-dev \
+  libpq-dev \
+  && if [ "$INSTALL_XDEBUG" = "true" ]; then \
+  pecl install xdebug \
+  && docker-php-ext-enable xdebug; \
+  fi \
+  && docker-php-ext-install -j$(nproc) intl opcache zip pdo_pgsql \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY --from=composer:2.9 /usr/bin/composer /usr/bin/composer
+
+COPY --link \
+  --from=ghcr.io/symfony-cli/symfony-cli:latest \
+  /usr/local/bin/symfony /usr/local/bin/symfony
+
+RUN echo "memory_limit = 256M" > /usr/local/etc/php/conf.d/symfony.ini \
+  && echo "upload_max_filesize = 20M" >> /usr/local/etc/php/conf.d/symfony.ini \
+  && echo "post_max_size = 20M" >> /usr/local/etc/php/conf.d/symfony.ini
+
+RUN if [ "$INSTALL_XDEBUG" = "true" ]; then { \
+  echo "xdebug.mode=debug,develop"; \
+  echo "xdebug.start_with_request=trigger"; \
+  echo "xdebug.discover_client_host=true"; \
+  echo "xdebug.client_host=host.docker.internal"; \
+  echo "xdebug.client_port=9003"; \
+  } > /usr/local/etc/php/conf.d/xdebug.ini; \
+  fi
+
+WORKDIR /var/www/html
