@@ -118,7 +118,25 @@ make init-symfony-webapp
 make init-symfony-skeleton
 ```
 
-💡 **Note :** On installe Symfony dans un dossier temporaire (`temp`) puis on copie les fichiers à la racine car `symfony new` refuse de s'installer dans un dossier non vide (qui contient déjà les fichiers Docker du template).
+💡 **Note :** On installe la dernière version de Symfony 7 (`7.*`) qui inclut tous les correctifs de sécurité. On utilise un dossier temporaire (`temp`) car `symfony new` refuse de s'installer dans un dossier non vide.
+
+⚠️ **IMPORTANT - Différence webapp vs skeleton :**
+
+| Fonctionnalité | Webapp ✅ | Skeleton ❌ |
+|----------------|----------|------------|
+| Twig (templates) | Inclus | À installer |
+| **Doctrine (ORM)** | **Inclus** | **À installer** |
+| Formulaires | Inclus | À installer |
+| Sécurité | Inclus | À installer |
+| Validation | Inclus | À installer |
+
+**Si tu choisis skeleton**, tu devras installer Doctrine manuellement :
+```bash
+docker-compose exec backend-php bash
+composer require symfony/orm-pack
+# Maintenant tu peux créer la DB
+symfony console doctrine:database:create
+```
 
 ### 6️⃣ Démarrer les containers
 
@@ -126,14 +144,32 @@ make init-symfony-skeleton
 docker-compose up -d
 ```
 
-### 7️⃣ Créer la base de données (ne marche pas en skeleton)
+### 7️⃣ Créer la base de données
 
+**Si tu as installé webapp (Doctrine inclus) :**
 ```bash
 # Entrer dans le container
 docker-compose exec backend-php bash
 
 # Créer la DB
 symfony console doctrine:database:create
+```
+
+**Si tu as installé skeleton (sans Doctrine) :**
+```bash
+# Entrer dans le container
+docker-compose exec backend-php bash
+
+# Installer Doctrine d'abord
+composer require symfony/orm-pack
+
+# Puis créer la DB
+symfony console doctrine:database:create
+```
+
+**Ou avec le Makefile (webapp uniquement) :**
+```bash
+make db-create
 ```
 
 ### 8️⃣ Vérifier l'installation
