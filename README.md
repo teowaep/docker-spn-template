@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Symfony](https://img.shields.io/badge/Symfony-7.2-000000?style=for-the-badge&logo=symfony)
+![Symfony](https://img.shields.io/badge/Symfony-8.0-000000?style=for-the-badge&logo=symfony)
 ![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Nginx](https://img.shields.io/badge/Nginx-1.27-009639?style=for-the-badge&logo=nginx&logoColor=white)
@@ -16,12 +16,12 @@
 
 Template prêt à l'emploi pour démarrer rapidement un projet Symfony avec Docker, Nginx et PostgreSQL.
 
-**Symfony 7 skeleton déjà installé** - Clone, configure et démarre en 3 commandes !
+**Symfony 8.0 skeleton déjà installé** - Clone, configure et démarre en 5 commandes !
 
 ## 📦 Stack technique
 
 - **PHP** 8.4-FPM avec Xdebug
-- **Symfony** 7 skeleton (déjà installé !)
+- **Symfony** 8 skeleton (déjà installé !)
 - **PostgreSQL** 18
 - **pgAdmin** 4 (interface web pour PostgreSQL)
 - **Nginx** 1.27+
@@ -32,7 +32,7 @@ Template prêt à l'emploi pour démarrer rapidement un projet Symfony avec Dock
 
 ## 🎯 Fonctionnalités
 
-✅ **Symfony 7 skeleton déjà installé** - Clone et démarre !  
+✅ **Symfony 8.0 skeleton déjà installé** - Clone et démarre !  
 ✅ Configuration Docker optimisée  
 ✅ Nginx configuré comme reverse proxy  
 ✅ PostgreSQL 18 avec persistence des données  
@@ -53,11 +53,22 @@ Template prêt à l'emploi pour démarrer rapidement un projet Symfony avec Dock
 - Docker Compose >= 2.0
 - Git
 
+### Configuration du template
+
+Le template utilise :
+- PHP 8.4 avec toutes les extensions Symfony 8.0 ✅
+- Symfony CLI intégré ✅
+- Composer 2.9 ✅
+- PostgreSQL 18
+- Nginx 1.27
+
+> 💡 Aucune installation locale requise ! Tout tourne dans Docker.
+
 ---
 
 ## 🚀 Installation rapide
 
-> 💡 **Ce template contient déjà Symfony 7 skeleton installé !** Tu n'as qu'à cloner, configurer et démarrer.
+> 💡 **Ce template contient déjà Symfony 8 skeleton installé !** Tu n'as qu'à cloner, configurer et démarrer.
 
 ### ⚡ Installation avec Make (Recommandé)
 
@@ -366,11 +377,9 @@ make test-coverage   # Tests avec couverture de code
 <summary>🚀 Installation (4 commandes)</summary>
 
 ```bash
-make init-symfony-webapp      # Installer Symfony webapp
-make init-symfony-skeleton    # Installer Symfony skeleton
-make first-install-webapp     # Première installation webapp complète (tout automatique)
-make first-install-skeleton   # Première installation skeleton complète (tout automatique)
-make setup                    # Setup après avoir installé Symfony manuellement
+make setup              # Installation complete (Symfony deja installe)
+make upgrade-webapp     # Passer de skeleton a webapp (site web)
+make upgrade-api        # Passer de skeleton a API (API REST)
 ```
 </details>
 
